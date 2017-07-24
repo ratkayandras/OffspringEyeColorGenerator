@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8">
+        <title>Szemszín Generátor</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="jumbotron text-center">
+            <h1>Utódszemszín Generátor</h1>
+            <p>Tudja meg ma milyen színe lesz kis lurkója szemének!!</p> 
+        </div>
+        <div class="container">
+            <div class="row">
+              <div class="col-sm-3">
+                <h3>1. szülő szemszíne</h3>
+                <select name="firstParentEyeColor" id="firstParentEyeColor" class="form-control">
+                  <option class="firstParentEye" value="brown">Barna</option>
+                  <option class="firstParentEye" value="blue">Kék</option>
+                  <option class="firstParentEye" value="green">Zöld</option>
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <h3>2. szülő szemszíne</h3>
+                <select name="secondParentEyeColor" id="secondParentEyeColor" class="form-control">
+                  <option class="secondParentEye" value="brown">Barna</option>
+                  <option class="secondParentEye" value="blue">Kék</option>
+                  <option class="secondParentEye" value="green">Zöld</option>
+                </select>
+              </div>
+              <div class="col-sm-3">
+                <h3>Utódok száma</h3>
+                <input type="number" class="form-control">
+              </div>
+              <div class="col-sm-3">
+                <h3>Utód Generálás</h3>
+                <button type="button" class="btn btn-success">Generálás</button>
+              </div>
+            </div>
+        </div><br>
+          <div class="container">
+            <table class="table-bordered">
+              <thead>
+                <tr>
+                  <th>Utód</th>
+                  <th>Szemszín</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <td colspan="2"><small>Minden jog fenntartva &copy;</small></td>
+                </tr>
+              </tfoot>
+              <tbody></tbody>
+            </table>
+          </div>
+          <script type="text/javascript" src="index.js"></script>
+    </body>
+</html>
