@@ -3,10 +3,12 @@
     <head>
         <meta charset="utf8">
         <title>Szemszín Generátor</title>
+        <link rel="shortcut icon" href="Images/blueeye.ico"/>
         <link rel="stylesheet" href="index.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     </head>
     <body>
         <div class="jumbotron text-center">
@@ -41,21 +43,45 @@
               </div>
             </div>
         </div><br>
-          <div class="container">
+          <div id="tableContainer" class="container">
             <table class="table-bordered">
-              <thead>
-                <tr>
-                  <th>Utód</th>
-                  <th>Szemszín</th>
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                  <td colspan="2"><small>Minden jog fenntartva &copy;</small></td>
-                </tr>
-              </tfoot>
+              <thead></thead>
+              <tfoot></tfoot>
               <tbody></tbody>
             </table>
+          </div>
+          <div class="container">
+          <br>
+          <button id="statButton" type="button" class="btn btn-info">Statisztika</button>
+          <table class="table-hover">
+              <thead></thead>
+              <tfoot></tfoot>
+              <tbody></tbody>
+          </table>
+          </div>
+          <div id="chartContainer" class="container"></div>
+          </div><br>
+          <div class="container">
+            <hr>
+            <div class="row">
+              <h2>Társadalomgenerátor</h2>
+              <div class="col-sm-3">
+                <h3>Barnaszeműek</h3>
+                <input id="peopleBrownNum" type="number" class="form-control">
+              </div>
+              <div class="col-sm-3">
+                <h3>Kékszeműek</h3>
+                <input id="peopleBlueNum" type="number" class="form-control">
+              </div>
+              <div class="col-sm-3">
+                <h3>Zöldszeműek</h3>
+                <input id="peopleGreenNum" type="number" class="form-control">
+              </div>
+              <div class="col-sm-3">
+                <h3>Társadalomgenerálás</h3>
+                <button type="button" class="btn btn-warning">Generálás</button>
+              </div>
+            </div>
           </div>
           <script type="text/javascript" src="index.js"></script>
     </body>
