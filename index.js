@@ -299,6 +299,8 @@ function generatePopulationEventHandler(){
     var peopleNumber1 = parseInt(document.querySelector("#peopleBrownNum").value);
     var peopleNumber2 = parseInt(document.querySelector("#peopleBlueNum").value);
     var peopleNumber3 = parseInt(document.querySelector("#peopleGreenNum").value);
+    var averageOffspringNum = parseInt(document.querySelector("#averageOffspringNum").value);
+    var generationNum = parseInt(document.querySelector("#generationNum").value);
 
     var brownEyedPeople = [];
     var blueEyedPeople = [];
@@ -320,7 +322,130 @@ function generatePopulationEventHandler(){
 
     //console.log(populationArray);
 
-    console.log(createPairsArray(populationArray));
+    //console.log(createPairsArray(populationArray));
+
+    var ObjContainerArray = createPairsArray(populationArray)
+
+    var familiesArray = createOffspringsInObjects(ObjContainerArray, averageOffspringNum, generationNum);
+
+    console.log(familiesArray);
+    //console.log(familiesArray.length);
+
+    var nodeThead = document.querySelectorAll("thead");
+    var nodeTfoot = document.querySelectorAll("tfoot");
+    var nodeTbody = document.querySelectorAll("tbody");
+
+    nodeThead[2].innerHTML = "<tr>" + "<th>Családok</th>"  
+                                    + "</tr>";
+
+    nodeTfoot[2].innerHTML = "<tr>" + "<td colspan='2'>" 
+                                    + "<small>Minden jog fenntartva &copy;</small>" 
+                                    + "</td>" 
+                                    + "</tr>";
+
+    var s = "";
+    var ancientCounter = 1;
+    var generationCounter = 1;
+
+        for(var i = 0; i < familiesArray.length; i++){       
+        s += "<tr>";
+        s += "<td>" + "Ősök " + ancientCounter + "</td>"
+        if(familiesArray[i].parent1 == "brown"){
+            s += "<td>" + "<div class=imgContainer>" + "<img src='Images/browneye.png'>" 
+                                            + "</div>" 
+                                            + " " 
+                                            + familiesArray[i].parent1;
+                                            + "</td>"
+
+        }else if(familiesArray[i].parent1 == "blue"){
+            s += "<td>" + "<div class=imgContainer>" + "<img src='Images/blueeye.png'>" 
+                                            + "</div>" 
+                                            + " " 
+                                            + familiesArray[i].parent1;
+                                            + "</td>"
+
+        }else if(familiesArray[i].parent1 == "green"){
+            s += "<td>" + "<div class=imgContainer>" + "<img src='Images/greeneye.png'>" 
+                                            + "</div>" 
+                                            + " " 
+                                            + familiesArray[i].parent1;
+                                            + "</td>"
+        }
+        
+        if(familiesArray[i].parent2 == "brown"){
+            s += "<td>" + "<div class=imgContainer>" + "<img src='Images/browneye.png'>" 
+                                            + "</div>" 
+                                            + " " 
+                                            + familiesArray[i].parent2;
+                                            + "</td>"
+
+        }else if(familiesArray[i].parent2 == "blue"){
+            s += "<td>" + "<div class=imgContainer>" + "<img src='Images/blueeye.png'>" 
+                                            + "</div>" 
+                                            + " " 
+                                            + familiesArray[i].parent2;
+                                            + "</td>"
+
+        }else if(familiesArray[i].parent2 == "green"){
+            s += "<td>" + "<div class=imgContainer>" + "<img src='Images/greeneye.png'>" 
+                                            + "</div>" 
+                                            + " " 
+                                            + familiesArray[i].parent2;
+                                            + "</td>"
+        }                            
+        s += "</tr>";
+        
+        
+        // Ezzel lehet majd jól feltölteni a sorokat az utódgenerációkkal he!!!
+        for(var o = 0; o < Object.keys(familiesArray[i]).length - 2; o++){
+            //var x = Object.keys(familiesArray[o])[o + 2];
+
+            s += "<tr>";
+            s += "<td>" + "Generáció " + generationCounter + "</td>"
+            //Lehetséges problémás rész
+            
+            s += "<td colspan='2'>";
+
+            for(var t = 0; t < familiesArray[i][Object.keys(familiesArray[o])[o + 2]].length; t++){
+                if(familiesArray[i][Object.keys(familiesArray[o])[o + 2]][t] == "brown"){
+
+                    s += "<div class=imgContainer>" + "<img src='Images/browneye.png'>" + "</div>";
+
+                }
+                else if(familiesArray[i][Object.keys(familiesArray[o])[o + 2]][t] == "green"){
+
+                    s += "<div class=imgContainer>" + "<img src='Images/greeneye.png'>" + "</div>";
+
+                }else{
+
+                    s += "<div class=imgContainer>" + "<img src='Images/blueeye.png'>" + "</div>";
+                }
+            }
+
+            s += "</td>";
+            
+            //Lehetséges probémás rész vége!!!
+
+            
+            //s += "<td>" + familiesArray[i][Object.keys(familiesArray[o])[o + 2]] + "</td>"
+            s += "</tr>";
+            
+            generationCounter++;
+            //console.log(Object.keys(familiesArray[i])[i + 2]);
+            //console.log(x);
+            //console.log(familiesArray[o].x);
+            //console.log(familiesArray[o].hasOwnProperty("name"));
+            //console.log(familiesArray[i][Object.keys(familiesArray[o])[o + 2]].length);
+        }
+        
+        ancientCounter++;
+        generationCounter = 1;
+    }
+
+    //Itt egy for ciklussal vagy forEach fgv-el feltöltöm a táblázatok sorait.
+    nodeTbody[2].innerHTML = s;
+
+    //console.log(generationController(familiesArray));
 
     /*A populationArray elemei tömbök, melyek a később kialakuló családobjektumok szülei lesznek
     A családobjektumoknak tetszőleges számú utódja lehet, ami szint szintén azokba az objektumokba
@@ -381,9 +506,62 @@ function createPairsArray(array){
 
     //párokat csinál az Array-ból
     for(i = 0; i < array.length; i+=2){
-        var tempArray = [];
-        tempArray.push(array[i], array[i+1]);
-        pairedArray.push(tempArray);
+        var tempObj = {};
+        tempObj.parent1 = array[i];
+        tempObj.parent2 = array[i+1];
+        pairedArray.push(tempObj);
     }
     return pairedArray;
 }
+
+function createOffspringsInObjects(ObjContainerArray, averageOffspringNumber, generationNumber){
+
+    var familiesArray = [];
+  
+        for(var i = 0; i < ObjContainerArray.length; i++){
+            tempEyePairArray = [];
+            tempEyePairArray.push(ObjContainerArray[i].parent1);
+            tempEyePairArray.push(ObjContainerArray[i].parent2);
+            var gencounter = 0;
+            //console.log(tempEyePairArray);
+            
+            for(var g = 0; g < generationNumber; g++){
+
+                if(tempEyePairArray % 2 == 1){
+                    tempEyePairArray.pop();
+                }
+
+                //tempEyePairArray = createPairsArray(tempEyePairArray);
+                //console.log(createPairsArray(tempEyePairArray).length);
+                //console.log(createPairsArray(tempEyePairArray));
+                var offsprings = [];
+                var objKey = "offspringGen" + g;
+
+                //for(var k = 0; k < tempEyePairArray.length; k++){
+                    for(var j = 0; j < averageOffspringNumber + gencounter; j++){ 
+                    offsprings.push(getEyeColor(tempEyePairArray));
+                    }
+                    //ObjContainerArray[i][objKey] = offsprings;
+               // }
+                ObjContainerArray[i][objKey] = offsprings;
+                //console.log(offsprings);
+               
+                //console.log(ObjContainerArray[i]);
+                tempEyePairArray = shuffle(offsprings);
+                //console.log(tempEyePairArray);
+                gencounter++;
+                gencounter *= averageOffspringNumber;
+            }
+            familiesArray.push(ObjContainerArray[i]);
+            
+        }
+     return familiesArray;
+     //console.log(familiesArray);
+     console.log(Object.keys(familiesArray[0]).length);
+}
+
+/*
+function generationController(familiesArray) {
+
+}
+*/
